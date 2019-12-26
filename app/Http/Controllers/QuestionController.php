@@ -19,8 +19,6 @@ class QuestionController extends Controller
         return  QuestionResource::collection(Question::latest()->get());
     }
 
-  
-
     /**
      * Store a newly created resource in storage.
      *
@@ -55,7 +53,8 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        $question->update($request->all());
+        return response('Updated');
     }
 
     /**
