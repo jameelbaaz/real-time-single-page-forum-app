@@ -3,7 +3,12 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +51,18 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($exception instanceOf TokenBlacklistedException){
+            return response(['error'=>'Token cannot be used'], 500);
+        }
+        elseif($exception instanceOf TokenInvalidException){
+            return response(['error'=>'Token is invalid'], 500);
+        }
+        elseif($exception instanceOf TokenExpiredException){
+            return response(['error'=>'Token is Expired'], 500);
+        }
+        elseif($exception instanceOf JWTException){
+            return response(['error'=>'Token is not provided'], 500);
+        }
         return parent::render($request, $exception);
-    }
+        }
 }
