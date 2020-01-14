@@ -27,6 +27,12 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 Vue.use(Vuetify);
 
+import VueSimplemde from 'vue-simplemde'
+Vue.use(VueSimplemde);
+import md from 'marked'
+window.md=md
+
+
 import User from './helpers/User'
 window.User = User
 
@@ -41,7 +47,8 @@ window.EventBus= new Vue();
 const app = new Vue({
     el: '#app',
     router,
-    vuetify: new Vuetify({})
+    vuetify: new Vuetify({}),
+   
 });
 
 
